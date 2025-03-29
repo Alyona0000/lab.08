@@ -86,6 +86,6 @@ def main():
     clock.update()  # Запускаємо оновлення без потоків
     turtle.mainloop()
 
-
+#
 if __name__ == "__main__":
     main()
