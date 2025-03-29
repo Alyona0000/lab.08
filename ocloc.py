@@ -1,4 +1,2 @@
-dddddddddddddddddddddddd
-dddddddddddddddddddd
-dddddddddddd
-jnjihi
+print("123")
+print('333')jiiok
