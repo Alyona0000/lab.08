@@ -1,8 +1,1 @@
-dddddddddddddddddddddddd
-dddddddddddddddddddd
-dddddddddddd
-jnjihi
-ihggjghj
-
-gjj
-
+print("123")
