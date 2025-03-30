@@ -1,8 +1,7 @@
-ffeefvigfsffsffffuymport time
+import time
 import math
 import datetime
 import turtle
-
 
 class ClockNumber:
     def __init__(self, number):
@@ -10,7 +9,6 @@ class ClockNumber:
 
     def __str__(self):
         return str(self.number)
-
 
 class ClockHand:
     def __init__(self, type_):
@@ -28,7 +26,6 @@ class ClockHand:
     def __str__(self):
         return f"{self.type_.capitalize()} hand at {self.angle} degrees"
 
-
 class ClockFace:
     def __init__(self):
         self.numbers = [ClockNumber(i) for i in range(1, 13)]
@@ -43,9 +40,7 @@ class ClockFace:
             y = 100 * math.cos(math.radians(i * 30))
             turtle.penup()
             turtle.goto(x, y)
-            turtle.pendown()
             turtle.write(str(num), align="center", font=("Arial", 14, "bold"))
-
 
 class Clock:
     def __init__(self):
@@ -53,39 +48,41 @@ class Clock:
         self.hour_hand = ClockHand('hour')
         self.minute_hand = ClockHand('minute')
         self.second_hand = ClockHand('second')
+        self.face.draw()  # Малюємо циферблат один раз
+        self.hands_drawer = turtle.Turtle()
+        self.hands_drawer.hideturtle()
 
     def update(self):
-        turtle.clear()
-        self.face.draw()
         now = datetime.datetime.now()
         self.hour_hand.update(now.hour)
         self.minute_hand.update(now.minute)
         self.second_hand.update(now.second)
+        self.redraw_hands()
+        turtle.ontimer(self.update, 1000)
+
+    def redraw_hands(self):
+        self.hands_drawer.clear()  # Очищуємо лише стрілки
         self.draw_hand(self.hour_hand, 50, "black")
         self.draw_hand(self.minute_hand, 70, "blue")
         self.draw_hand(self.second_hand, 90, "red")
-        turtle.update()
-        turtle.ontimer(self.update, 1000)  # Автоматичне оновлення кожну секунду
 
     def draw_hand(self, hand, length, color):
-        turtle.penup()
-        turtle.goto(0, 0)
-        turtle.setheading(90 - hand.angle)
-        turtle.pendown()
-        turtle.pensize(3 if hand.type_ == 'hour' else 2)
-        turtle.pencolor(color)
-        turtle.forward(length)
-        turtle.penup()
-        turtle.goto(0, 0)
-        turtle.pendown()
-
+        self.hands_drawer.penup()
+        self.hands_drawer.goto(0, 0)
+        self.hands_drawer.setheading(90 - hand.angle)
+        self.hands_drawer.pendown()
+        self.hands_drawer.pensize(3 if hand.type_ == 'hour' else 2)
+        self.hands_drawer.pencolor(color)
+        self.hands_drawer.forward(length)
+        self.hands_drawer.penup()
+        self.hands_drawer.goto(0, 0)
+        self.hands_drawer.pendown()
 
 def main():
     turtle.tracer(0, 0)
     clock = Clock()
-    clock.update()  # Запускаємо оновлення без потоків
+    clock.update()
     turtle.mainloop()
 
-##
 if __name__ == "__main__":
     main()
