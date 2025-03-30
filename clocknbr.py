@@ -1,4 +1,4 @@
-import time
+ffeefvimport time
 import math
 import datetime
 import turtle
